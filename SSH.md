@@ -5,10 +5,16 @@ alongside `modelence dev`. Production `npm start` is unchanged.
 
 ## Required Modelence capabilities
 
-Modelence must provide an OpenSSH server (`sshd`), `ssh-keygen`, and permission to
-run it. Its OS account must allow public-key login. Some container images also
-require the platform to create `/run/sshd`. This script does not install system
-packages, unlock accounts, or change platform networking.
+The script attempts to install OpenSSH using `apt-get` (Debian/Ubuntu) or `apk`
+(Alpine) if it is missing, and creates `/run/sshd` if needed. Installation requires
+root or passwordless sudo and working package-network access. Progress and errors
+are printed to the sandbox logs. Set `SANDBOX_SSH_INSTALL=0` to disable automatic
+installation. Installation only runs once a public key is configured.
+
+Modelence must permit running an SSH server, and its OS account must allow
+public-key login. This script does not unlock accounts or change platform
+networking. If platform permissions prevent installation, Modelence must provide
+OpenSSH in the sandbox image.
 
 Modelence must also provide a TCP endpoint or an approved tunnel into the sandbox.
 The HTTPS app URL alone is not an SSH endpoint. Modelence's deployment docs do not
