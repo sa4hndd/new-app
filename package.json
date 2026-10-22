@@ -6,7 +6,7 @@
   "scripts": {
     "build": "modelence build",
     "start": "node .modelence/build/app.mjs",
-    "dev": "modelence dev",
+    "dev": "bash scripts/dev-with-ssh.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
